@@ -1,65 +1,245 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import PortfolioDropdown from "@/app/components/PortfolioDropdown"; // chỉnh path nếu khác
+
+const TOTAL_SLIDES = 4;
+
+export default function BrandingTimelessPage() {
+  const [pageIndex, setPageIndex] = useState(0); // 0..3
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const isAnimatingRef = useRef(false);
+
+  // trạng thái slide 0: ảnh project name đã phóng to chưa
+  const [isProjectExpanded, setIsProjectExpanded] = useState(false);
+
+  // Lăn chuột để chuyển slide 0 <-> 3
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const onWheel = (e: WheelEvent) => {
+      if (pageIndex === 0 && !isProjectExpanded) return;
+
+      if (isAnimatingRef.current) return;
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // ưu tiên lăn dọc
+
+      e.preventDefault();
+
+      if (e.deltaY > 0 && pageIndex < TOTAL_SLIDES - 1) {
+        // lăn xuống → slide tiếp theo
+        isAnimatingRef.current = true;
+        setPageIndex((prev) => Math.min(prev + 1, TOTAL_SLIDES - 1));
+        setTimeout(() => {
+          isAnimatingRef.current = false;
+        }, 650);
+      } else if (e.deltaY < 0 && pageIndex > 0) {
+        // lăn lên → slide trước
+        isAnimatingRef.current = true;
+        setPageIndex((prev) => Math.max(prev - 1, 0));
+        setTimeout(() => {
+          isAnimatingRef.current = false;
+        }, 650);
+      }
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", onWheel as any);
+    };
+  }, [pageIndex, isProjectExpanded]);
+
+  const handleProjectClick = () => {
+    setIsProjectExpanded((prev) => {
+      const next = !prev;
+
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("portfolio-bars-toggle", {
+            detail: { hidden: next }, // phóng to => true, thu nhỏ => false
+          })
+        );
+      }
+
+      return next;
+    });
+  };
+
+
+
+  // 🟡 config thanh indicator bên dưới
+  const DOT_WIDTH = 96;   // width icon asset64
+  const GAP = 0;          // khoảng cách giữa 2 icon
+  const SEGMENT = DOT_WIDTH + GAP; // mỗi step
+  const TRACK_WIDTH = DOT_WIDTH * TOTAL_SLIDES + GAP * (TOTAL_SLIDES - 1); // tổng chiều dài
+  const knobLeft = pageIndex * SEGMENT; // px từ trái
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <section
+      ref={containerRef}
+      className="h-screen w-screen relative overflow-hidden"
+    >
+      {/* SLIDER: 4 slide, trượt theo pageIndex */}
+      <motion.div
+        className="absolute inset-0 flex"
+        animate={{ x: `-${pageIndex * 100}%` }}
+        transition={{
+          duration: 0.6,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        {/* Slide 0: BG + project name zoom */}
+        <div className="relative h-full w-full shrink-0 overflow-hidden">
+          {/* BG slide 0 */}
+          <Image
+            src="/WEB_ELEMENT/portfolio/Thumbnails/BACKGROUND/Asset42.png"
+            alt="background"
+            fill
+            priority
+            className="object-cover"
+          />
+
+          {/* Project name ở giữa, scale 50% -> 100% khi click */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.div
+                onClick={handleProjectClick}
+                initial={false}
+                animate={{ scale: isProjectExpanded ? 1 : 0.5 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="cursor-pointer"
+              >
+              <Image
+                src="/WEB_ELEMENT/portfolio/Thumbnails/PROJECT NAMES/Asset47.png"
+                alt="Timeless Branding Project Name"
+                width={1023}
+                height={897}
+                className="object-contain"
+              />
+            </motion.div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        {/* Slide 1 */}
+        <div className="relative h-full w-full shrink-0 overflow-hidden">
+          <Image
+            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Timeless branding/Asset 8.png"
+            alt="Timeless Branding 1"
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        {/* Slide 2 */}
+        <div className="relative h-full w-full shrink-0 overflow-hidden">
+          <Image
+            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Timeless branding/Asset 4.png"
+            alt="Timeless Branding 2"
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        {/* Slide 3 */}
+        <div className="relative h-full w-full shrink-0 overflow-hidden">
+          <Image
+            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Timeless branding/Asset 2.png"
+            alt="Timeless Branding 3"
+            fill
+            className="object-cover"
+          />
+        </div>
+      </motion.div>
+
+      {/* 🟣 THANH SLIDE DƯỚI TRANG */}
+      <div
+        className="
+          absolute left-1/2
+          top-[89.5%] 
+          -translate-x-1/2
+          z-20
+        "
+      >
+        <div
+          className="relative flex items-center"
+          style={{ width: TRACK_WIDTH, height: 60 }}
+        >
+          {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
+            <div
+              key={i}
+              style={{ width: DOT_WIDTH, marginRight: i === TOTAL_SLIDES - 1 ? 0 : GAP }}
+            >
+              <Image
+                src="/WEB_ELEMENT/portfolio/Thumbnails/Asset65.png"
+                alt={`Slide indicator ${i + 1}`}
+                width={DOT_WIDTH}
+                height={DOT_WIDTH}
+                className="object-contain"
+              />
+            </div>
+          ))}
+
+          {/* Nút asset63 trượt theo slide */}
+          <motion.div
+            className="absolute"
+            initial={false}
+            animate={{ left: knobLeft }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/WEB_ELEMENT/portfolio/Thumbnails/Asset66.png"
+              alt="Current slide indicator"
+              width={96}
+              height={48}
+              className="object-contain"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </motion.div>
         </div>
-      </main>
-    </div>
+      </div>
+
+      {/* Phần header trong file này hiện vẫn giữ nguyên.
+          Nếu sau này bạn dùng Navbar/Footer từ layout, 
+          chỉ cần xoá block header này đi. */}
+      <div className="relative z-30 h-full w-full flex flex-col pointer-events-none">
+        <header
+          className="
+            w-full
+            px-8 pt-6 pb-20
+            flex justify-between items-start
+            pointer-events-auto
+          "
+        >
+          <div className="flex items-start">
+            <Image
+              src="/WEB_ELEMENT/portfolio/Thumbnails/LOGO UPPER LEFT CORNER/Asset46.png"
+              alt="Art Portfolio Logo"
+              width={70}
+              height={101}
+              className="object-contain mt-1"
+            />
+          </div>
+
+          <div className="flex gap-10 items-start mt-4">
+            <Link href="/" className="nav-link" style={{ color: "#CA2F1E" }}>
+              Home
+            </Link>
+
+            <PortfolioDropdown
+              triggerColor="#CA2F1E"
+              dropdownBgSrc="/WEB_ELEMENT/portfolio/Thumbnails/Asset55.png"
+              itemColor="#F3762B"
+            />
+
+            <Link href="/contact" className="nav-link" style={{ color: "#CA2F1E" }}>
+              Contact
+            </Link>
+          </div>
+        </header>
+
+        <div className="flex-1" />
+      </div>
+    </section>
   );
 }
