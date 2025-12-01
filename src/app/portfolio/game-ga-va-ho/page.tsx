@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import PortfolioDropdown from "@/app/components/PortfolioDropdown"; // chỉnh path nếu khác
 
-const TOTAL_SLIDES = 4;
+const TOTAL_SLIDES = 3;
 
 export default function GameGaVaHoPage() {
   const [pageIndex, setPageIndex] = useState(0); // 0..3
@@ -132,16 +132,6 @@ export default function GameGaVaHoPage() {
           />
         </div>
 
-        {/* Slide 2 */}
-        <div className="relative h-full w-full shrink-0 overflow-hidden">
-          <Image
-            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Ga va Ho/Asset68.png"
-            alt="GaVaHo2"
-            fill
-            className="object-cover"
-          />
-        </div>
-
         {/* Slide 3 */}
         <div className="relative h-full w-full shrink-0 overflow-hidden">
           <Image
@@ -224,6 +214,10 @@ export default function GameGaVaHoPage() {
           <div className="flex gap-10 items-start mt-4">
             <Link href="/" className="nav-link" style={{ color: "#F6B8D3" }}>
               Home
+            </Link>
+
+            <Link href="/about-me" className="nav-link" style={{ color: "#F6B8D3" }}>
+              About
             </Link>
 
             <PortfolioDropdown

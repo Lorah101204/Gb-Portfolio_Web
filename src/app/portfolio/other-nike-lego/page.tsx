@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import PortfolioDropdown from "@/app/components/PortfolioDropdown"; // chỉnh path nếu khác
 
-const TOTAL_SLIDES = 4;
+const TOTAL_SLIDES = 3;
 
 export default function OtherNikeLegoPage() {
   const [pageIndex, setPageIndex] = useState(0); // 0..3
@@ -127,16 +127,6 @@ export default function OtherNikeLegoPage() {
           <Image
             src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Nike x Lego/Asset 1.png"
             alt="Nike x Lego 1"
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        {/* Slide 2 */}
-        <div className="relative h-full w-full shrink-0 overflow-hidden">
-          <Image
-            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Nike x Lego/Asset 3.png"
-            alt="Nike x Lego 2"
             fill
             className="object-cover"
           />

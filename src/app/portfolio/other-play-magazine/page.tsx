@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import PortfolioDropdown from "@/app/components/PortfolioDropdown"; // chỉnh path nếu khác
 
-const TOTAL_SLIDES = 4;
+const TOTAL_SLIDES = 3;
 
 export default function OtherPlayMagazinePage() {
   const [pageIndex, setPageIndex] = useState(0); // 0..3
@@ -127,16 +127,6 @@ export default function OtherPlayMagazinePage() {
           <Image
             src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Play magazine/Asset 4.png"
             alt="Play magazine 1"
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        {/* Slide 2 */}
-        <div className="relative h-full w-full shrink-0 overflow-hidden">
-          <Image
-            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Play magazine/Asset 6.png"
-            alt="Play magazine 2"
             fill
             className="object-cover"
           />

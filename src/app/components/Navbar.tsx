@@ -31,6 +31,10 @@ const Navbar = React.forwardRef<HTMLElement, Props>(function Navbar(props, ref) 
           Home
         </Link>
 
+        <Link href="/about-me" className="nav-link">
+          About
+        </Link>
+
         <PortfolioDropdown 
           triggerColor="#19459D" 
         />
