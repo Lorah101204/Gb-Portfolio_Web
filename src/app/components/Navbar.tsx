@@ -12,7 +12,7 @@ const Navbar = React.forwardRef<HTMLElement, Props>(function Navbar(props, ref) 
       ref={ref}
       {...props}
       className={
-        "w-full fixed top-0 z-50 bg-[#f6b8d3] border-b border-black/10 px-8 pt-6 pb-20 flex justify-between items-start " +
+        "w-full fixed top-0 z-50 bg-[#f6b8d3] border-b border-black/10 px-8 pt-6 pb-16 flex justify-between items-start " +
         (props.className ?? "")
       }
     >

@@ -9,7 +9,7 @@ const Footer = React.forwardRef<HTMLElement, Props>(function Footer(props, ref) 
       ref={ref}
       {...props}
       className={
-        "w-full fixed bottom-0 left-0 z-40 bg-[#f6b8d3] border-t border-black/10 py-33 " +
+        "w-full fixed bottom-0 left-0 z-40 bg-[#f6b8d3] border-t border-black/10 py-26.5" +
         (props.className ?? "")
       }
     />
