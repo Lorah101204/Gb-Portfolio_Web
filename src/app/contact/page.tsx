@@ -22,11 +22,11 @@ export default function ContactPage() {
           <div
             className="max-w-4xl w-full"
             style={{
-              transform: "translate(-40px, 130px)",
+              transform: "translate(-65px, 130px)",
             }}
           >
             {/* GRID 2 CỘT */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[490px] gap-y-[50px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[520px] gap-y-[50px]">
 
               {/* Column 1 */}
               <div className="flex flex-col gap-[40px]">
@@ -93,18 +93,18 @@ export default function ContactPage() {
                 {/* Row 4 */}
                 <div className="flex items-center gap-[53px]">
                   <Image
-                    src="/WEB_ELEMENT/1x/Asset33.png"
+                    src="/WEB_ELEMENT/NEWDESIGN/aboutme/Asset 77.png"
                     alt="Icon LinkedIn"
                     width={58}
                     height={58}
                     className="object-contain shrink-0"
                   />
                   <Link
-                    href="https://www.linkedin.com/"
+                    href="https://www.linkedin.com/in/b-ng-882aa7358/"
                     className="nav-link-heavy"
                     style={{ color: "#FFFFFF", fontFamily: '"FivoSansHeavy", sans-serif' }}
                   >
-                    LinkedIn
+                    B NG
                   </Link>
                 </div>
 
