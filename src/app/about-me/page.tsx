@@ -97,7 +97,7 @@ export default function AboutPage() {
             </Link>
 
             <PortfolioDropdown
-              dropdownBgSrc="/WEB_ELEMENT/portfolio/Thumbnails/Asset56.png"ko
+              dropdownBgSrc="/WEB_ELEMENT/portfolio/Thumbnails/Asset56.png"
             />
 
             <Link
