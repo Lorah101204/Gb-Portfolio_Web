@@ -82,7 +82,7 @@ export default function PortfolioDropdown({
                 <div className="flex flex-col space-y-[8px]">
                   {/* Branding: Timeless */}
                   <Link
-                    href="/"
+                    href="/portfolio/branding-timeless"
                     className={`nav-link-dropdown block whitespace-nowrap ${itemClassName}`}
                     style={{ color: itemColor }}
                     onClick={() => setOpen(false)}

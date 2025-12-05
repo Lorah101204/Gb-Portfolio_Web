@@ -9,19 +9,40 @@ import PortfolioDropdown from "@/app/components/PortfolioDropdown"; // chỉnh p
 const TOTAL_SLIDES = 3;
 
 export default function BrandingStarbalmPage() {
-  const [pageIndex, setPageIndex] = useState(0); // 0..3
+  const [pageIndex, setPageIndex] = useState(0); // 0..2
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isAnimatingRef = useRef(false);
 
   // trạng thái slide 0: ảnh project name đã phóng to chưa
   const [isProjectExpanded, setIsProjectExpanded] = useState(false);
 
-  // Lăn chuột để chuyển slide 0 <-> 3
+  // ⭐ Tự động kích hoạt phóng to project name sau 0.2s khi vào page
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsProjectExpanded(true);
+
+      // bắn event giống như khi bấm click phóng to
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("portfolio-bars-toggle", {
+            detail: { hidden: true }, // phóng to => true
+          })
+        );
+      }
+    }, 50); // 0.2s
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  // Lăn chuột để chuyển slide 0 <-> 2
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const onWheel = (e: WheelEvent) => {
+      // Điều kiện: chỉ cho lăn khi đã expand slide 0
       if (pageIndex === 0 && !isProjectExpanded) return;
 
       if (isAnimatingRef.current) return;
@@ -68,13 +89,12 @@ export default function BrandingStarbalmPage() {
     });
   };
 
-
-
   // 🟡 config thanh indicator bên dưới
-  const DOT_WIDTH = 96;   // width icon asset64
-  const GAP = 0;          // khoảng cách giữa 2 icon
+  const DOT_WIDTH = 96; // width icon asset64
+  const GAP = 0; // khoảng cách giữa 2 icon
   const SEGMENT = DOT_WIDTH + GAP; // mỗi step
-  const TRACK_WIDTH = DOT_WIDTH * TOTAL_SLIDES + GAP * (TOTAL_SLIDES - 1); // tổng chiều dài
+  const TRACK_WIDTH =
+    DOT_WIDTH * TOTAL_SLIDES + GAP * (TOTAL_SLIDES - 1); // tổng chiều dài
   const knobLeft = pageIndex * SEGMENT; // px từ trái
 
   return (
@@ -82,7 +102,7 @@ export default function BrandingStarbalmPage() {
       ref={containerRef}
       className="h-screen w-screen relative overflow-hidden"
     >
-      {/* SLIDER: 4 slide, trượt theo pageIndex */}
+      {/* SLIDER: 3 slide, trượt theo pageIndex */}
       <motion.div
         className="absolute inset-0 flex"
         animate={{ x: `-${pageIndex * 100}%` }}
@@ -102,15 +122,15 @@ export default function BrandingStarbalmPage() {
             className="object-cover"
           />
 
-          {/* Project name ở giữa, scale 50% -> 100% khi click */}
+          {/* Project name ở giữa, scale 0.5 -> 1.25 */}
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
-                onClick={handleProjectClick}
-                initial={false}
-                animate={{ scale: isProjectExpanded ? 1 : 0.5 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="cursor-pointer"
-              >
+              onClick={handleProjectClick}
+              initial={false}
+              animate={{ scale: isProjectExpanded ? 1.25 : 0.5 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="cursor-pointer"
+            >
               <Image
                 src="/WEB_ELEMENT/portfolio/Thumbnails/PROJECT NAMES/Asset48.png"
                 alt="Project Name"
@@ -132,7 +152,7 @@ export default function BrandingStarbalmPage() {
           />
         </div>
 
-        {/* Slide 3 */}
+        {/* Slide 2 */}
         <div className="relative h-full w-full shrink-0 overflow-hidden">
           <Image
             src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Starbalm branding/Asset 7.png"
@@ -159,7 +179,10 @@ export default function BrandingStarbalmPage() {
           {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
             <div
               key={i}
-              style={{ width: DOT_WIDTH, marginRight: i === TOTAL_SLIDES - 1 ? 0 : GAP }}
+              style={{
+                width: DOT_WIDTH,
+                marginRight: i === TOTAL_SLIDES - 1 ? 0 : GAP,
+              }}
             >
               <Image
                 src="/WEB_ELEMENT/portfolio/Thumbnails/Asset65.png"
@@ -171,7 +194,7 @@ export default function BrandingStarbalmPage() {
             </div>
           ))}
 
-          {/* Nút asset63 trượt theo slide */}
+          {/* Nút asset66 trượt theo slide */}
           <motion.div
             className="absolute"
             initial={false}
@@ -189,9 +212,7 @@ export default function BrandingStarbalmPage() {
         </div>
       </div>
 
-      {/* Phần header trong file này hiện vẫn giữ nguyên.
-          Nếu sau này bạn dùng Navbar/Footer từ layout, 
-          chỉ cần xoá block header này đi. */}
+      {/* HEADER OVERLAY */}
       <div className="relative z-30 h-full w-full flex flex-col pointer-events-none">
         <header
           className="
@@ -216,7 +237,11 @@ export default function BrandingStarbalmPage() {
               Home
             </Link>
 
-            <Link href="/about-me" className="nav-link" style={{ color: "#CA2F1E" }}>
+            <Link
+              href="/about-me"
+              className="nav-link"
+              style={{ color: "#CA2F1E" }}
+            >
               About
             </Link>
 
@@ -226,7 +251,11 @@ export default function BrandingStarbalmPage() {
               itemColor="#F3762B"
             />
 
-            <Link href="/contact" className="nav-link" style={{ color: "#CA2F1E" }}>
+            <Link
+              href="/contact"
+              className="nav-link"
+              style={{ color: "#CA2F1E" }}
+            >
               Contact
             </Link>
           </div>

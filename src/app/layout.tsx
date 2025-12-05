@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
 
   // xác định page
-  const isHomePage = pathname === "/portfolio/branding-timeless";
+  const isHomePage = pathname === "/";
   const isRootSlider = pathname === "/";
   const isContactPage = pathname === "/contact";
   const isAboutPage = pathname === "/about-me";
@@ -30,20 +30,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   // trạng thái ép ẩn navbar/footer từ portfolio page (click phóng to project name)
   const [forceHideBars, setForceHideBars] = useState(false);
-  const hideBars = (isContactPage || isAboutPage) || forceHideBars;
+  const hideBars = isHomePage || (isContactPage || isAboutPage) || forceHideBars;
   const router = useRouter();
 
   // The pages order we want to navigate using wheel when navbar/footer are visible
   const routeOrder = useMemo(() => [
-    "/about-me",
     "/",
+    "/portfolio/branding-timeless",
     "/portfolio/branding-starbalm",
     "/portfolio/game-ga-va-ho",
     "/portfolio/game-echoes-of-time",
     "/portfolio/other-nike-lego",
     "/portfolio/other-play-magazine",
     "/portfolio/illustration",
-    "/contact",
   ], []);
 
   const isNavigatingRef = useRef(false);

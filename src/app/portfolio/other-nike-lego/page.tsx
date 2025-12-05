@@ -16,6 +16,25 @@ export default function OtherNikeLegoPage() {
   // trạng thái slide 0: ảnh project name đã phóng to chưa
   const [isProjectExpanded, setIsProjectExpanded] = useState(false);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsProjectExpanded(true);
+
+      // bắn event giống như khi bấm click phóng to
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("portfolio-bars-toggle", {
+            detail: { hidden: true }, // phóng to => true
+          })
+        );
+      }
+    }, 50); // 0.2s
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   // Lăn chuột để chuyển slide 0 <-> 3
   useEffect(() => {
     const el = containerRef.current;
@@ -107,7 +126,7 @@ export default function OtherNikeLegoPage() {
             <motion.div
                 onClick={handleProjectClick}
                 initial={false}
-                animate={{ scale: isProjectExpanded ? 1 : 0.5 }}
+                animate={{ scale: isProjectExpanded ? 1.25 : 0.5 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="cursor-pointer"
               >

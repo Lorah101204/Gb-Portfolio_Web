@@ -65,6 +65,25 @@ export default function IllustrationPage() {
   const activeImage =
     activeIndex !== null ? SLIDE2_IMAGES[activeIndex] : null;
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsProjectExpanded(true);
+
+      // bắn event giống như khi bấm click phóng to
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("portfolio-bars-toggle", {
+            detail: { hidden: true }, // phóng to => true
+          })
+        );
+      }
+    }, 50); // 0.2s
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   // Lăn chuột để chuyển slide 0 <-> 1
   useEffect(() => {
     const el = containerRef.current;
@@ -160,7 +179,7 @@ export default function IllustrationPage() {
         {/* Slide 0: BG + project name zoom */}
         <div className="relative h-full w-full shrink-0 overflow-hidden">
           <Image
-            src="/WEB_ELEMENT/portfolio/Thumbnails/BACKGROUND/Asset39.png"
+            src="/WEB_ELEMENT/portfolio/Thumbnails/BACKGROUND/Asset40.png"
             alt="background"
             fill
             priority
@@ -171,12 +190,12 @@ export default function IllustrationPage() {
             <motion.div
               onClick={handleProjectClick}
               initial={false}
-              animate={{ scale: isProjectExpanded ? 1 : 0.5 }}
+              animate={{ scale: isProjectExpanded ? 1.25 : 0.5 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="cursor-pointer"
             >
               <Image
-                src="/WEB_ELEMENT/portfolio/Thumbnails/PROJECT NAMES/Asset51.png"
+                src="/WEB_ELEMENT/NEWDESIGN/newasset/Asset 87.png"
                 alt="Project Name"
                 width={1023}
                 height={897}
@@ -189,13 +208,13 @@ export default function IllustrationPage() {
         {/* 🟣 Slide 1: BG + 4 ảnh lộn xộn chồng chéo */}
         <div className="relative h-full w-full shrink-0 overflow-hidden">
           <Image
-            src="/WEB_ELEMENT/portfolio/Thumbnails/BACKGROUND/Asset39.png"
+            src="/WEB_ELEMENT/portfolio/Thumbnails/BACKGROUND/Asset40.png"
             alt="background slide 2"
             fill
             className="object-cover"
           />
 
-          <div className="absolute inset-0 flex items-center justify-center px-4">
+            <div className="absolute inset-0 flex items-center justify-center translate-y-[-50px]">
             <div className="relative w-[90vw] max-w-5xl h-[60vh] max-h-[600px]">
               {SLIDE2_IMAGES.map((img, index) => {
                 const baseScale = img.thumbScale ?? 1;
@@ -302,7 +321,7 @@ export default function IllustrationPage() {
               }}
             >
               <Image
-                src="/WEB_ELEMENT/portfolio/Thumbnails/Asset62.png"
+                src="/WEB_ELEMENT/portfolio/Thumbnails/Asset64.png"
                 alt={`Slide indicator ${i + 1}`}
                 width={DOT_WIDTH}
                 height={DOT_WIDTH}
@@ -318,7 +337,7 @@ export default function IllustrationPage() {
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <Image
-              src="/WEB_ELEMENT/portfolio/Thumbnails/Asset59.png"
+              src="/WEB_ELEMENT/portfolio/Thumbnails/Asset63.png"
               alt="Current slide indicator"
               width={96}
               height={48}
@@ -340,7 +359,7 @@ export default function IllustrationPage() {
         >
           <div className="flex items-start">
             <Image
-              src="/WEB_ELEMENT/portfolio/Thumbnails/LOGO UPPER LEFT CORNER/Asset44.png"
+              src="/WEB_ELEMENT/portfolio/Thumbnails/LOGO UPPER LEFT CORNER/Asset43.png"
               alt="Art Portfolio Logo"
               width={70}
               height={101}
@@ -348,21 +367,22 @@ export default function IllustrationPage() {
             />
           </div>
 
+
           <div className="flex gap-10 items-start mt-4">
-            <Link href="/" className="nav-link" style={{ color: "#19459D" }}>
+            <Link href="/" className="nav-link" style={{ color: "#F6B8D3" }}>
               Home
             </Link>
 
+            <Link href="/about-me" className="nav-link" style={{ color: "#F6B8D3" }}>
+              About
+            </Link>
+
             <PortfolioDropdown
-              triggerColor="#19459D"
+              triggerColor="#F6B8D3"
+              dropdownBgSrc="/WEB_ELEMENT/portfolio/Thumbnails/Asset56.png"
               itemColor="#F3762B"
             />
-
-            <Link
-              href="/contact"
-              className="nav-link"
-              style={{ color: "#19459D" }}
-            >
+            <Link href="/contact" className="nav-link" style={{ color: "#F6B8D3" }}>
               Contact
             </Link>
           </div>

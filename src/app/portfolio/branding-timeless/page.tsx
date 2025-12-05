@@ -8,7 +8,7 @@ import PortfolioDropdown from "@/app/components/PortfolioDropdown"; // chỉnh p
 
 const TOTAL_SLIDES = 3;
 
-export default function OtherPlayMagazinePage() {
+export default function BrandingTimelessPage() {
   const [pageIndex, setPageIndex] = useState(0); // 0..3
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isAnimatingRef = useRef(false);
@@ -16,7 +16,7 @@ export default function OtherPlayMagazinePage() {
   // trạng thái slide 0: ảnh project name đã phóng to chưa
   const [isProjectExpanded, setIsProjectExpanded] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       setIsProjectExpanded(true);
 
@@ -34,7 +34,6 @@ export default function OtherPlayMagazinePage() {
       clearTimeout(timer);
     };
   }, []);
-
 
   // Lăn chuột để chuyển slide 0 <-> 3
   useEffect(() => {
@@ -115,7 +114,7 @@ export default function OtherPlayMagazinePage() {
         <div className="relative h-full w-full shrink-0 overflow-hidden">
           {/* BG slide 0 */}
           <Image
-            src="/WEB_ELEMENT/portfolio/Thumbnails/BACKGROUND/Asset41.png"
+            src="/WEB_ELEMENT/portfolio/Thumbnails/BACKGROUND/Asset42.png"
             alt="background"
             fill
             priority
@@ -132,8 +131,8 @@ export default function OtherPlayMagazinePage() {
                 className="cursor-pointer"
               >
               <Image
-                src="/WEB_ELEMENT/portfolio/Thumbnails/PROJECT NAMES/Asset50.png"
-                alt="Project Name"
+                src="/WEB_ELEMENT/portfolio/Thumbnails/PROJECT NAMES/Asset47.png"
+                alt="Timeless Branding Project Name"
                 width={1023}
                 height={897}
                 className="object-contain"
@@ -145,8 +144,8 @@ export default function OtherPlayMagazinePage() {
         {/* Slide 1 */}
         <div className="relative h-full w-full shrink-0 overflow-hidden">
           <Image
-            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Play magazine/Asset 4.png"
-            alt="Play magazine 1"
+            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Timeless branding/Asset 8.png"
+            alt="Timeless Branding 1"
             fill
             className="object-cover"
           />
@@ -155,8 +154,8 @@ export default function OtherPlayMagazinePage() {
         {/* Slide 3 */}
         <div className="relative h-full w-full shrink-0 overflow-hidden">
           <Image
-            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Play magazine/Asset 7.png"
-            alt="Play magazine 3"
+            src="/WEB_ELEMENT/portfolio/Thumbnails/2x/Timeless branding/Asset 2.png"
+            alt="Timeless Branding 3"
             fill
             className="object-cover"
           />
@@ -182,7 +181,7 @@ export default function OtherPlayMagazinePage() {
               style={{ width: DOT_WIDTH, marginRight: i === TOTAL_SLIDES - 1 ? 0 : GAP }}
             >
               <Image
-                src="/WEB_ELEMENT/portfolio/Thumbnails/Asset58.png"
+                src="/WEB_ELEMENT/portfolio/Thumbnails/Asset65.png"
                 alt={`Slide indicator ${i + 1}`}
                 width={DOT_WIDTH}
                 height={DOT_WIDTH}
@@ -199,7 +198,7 @@ export default function OtherPlayMagazinePage() {
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <Image
-              src="/WEB_ELEMENT/portfolio/Thumbnails/Asset57.png"
+              src="/WEB_ELEMENT/portfolio/Thumbnails/Asset66.png"
               alt="Current slide indicator"
               width={96}
               height={48}
@@ -223,7 +222,7 @@ export default function OtherPlayMagazinePage() {
         >
           <div className="flex items-start">
             <Image
-              src="/WEB_ELEMENT/portfolio/Thumbnails/LOGO UPPER LEFT CORNER/Asset45.png"
+              src="/WEB_ELEMENT/portfolio/Thumbnails/LOGO UPPER LEFT CORNER/Asset46.png"
               alt="Art Portfolio Logo"
               width={70}
               height={101}
@@ -232,17 +231,21 @@ export default function OtherPlayMagazinePage() {
           </div>
 
           <div className="flex gap-10 items-start mt-4">
-            <Link href="/" className="nav-link" style={{ color: "#8DC63F" }}>
+            <Link href="/" className="nav-link" style={{ color: "#CA2F1E" }}>
               Home
             </Link>
 
+            <Link href="/about-me" className="nav-link" style={{ color: "#CA2F1E" }}>
+              About
+            </Link>
+
             <PortfolioDropdown
-              triggerColor="#8DC63F"
-              dropdownBgSrc="/WEB_ELEMENT/portfolio/Thumbnails/Asset54.png"
+              triggerColor="#CA2F1E"
+              dropdownBgSrc="/WEB_ELEMENT/portfolio/Thumbnails/Asset55.png"
               itemColor="#F3762B"
             />
 
-            <Link href="/contact" className="nav-link" style={{ color: "#8DC63F" }}>
+            <Link href="/contact" className="nav-link" style={{ color: "#CA2F1E" }}>
               Contact
             </Link>
           </div>
