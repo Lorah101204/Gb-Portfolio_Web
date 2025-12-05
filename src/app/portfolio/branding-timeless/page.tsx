@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import PortfolioDropdown from "@/app/components/PortfolioDropdown"; // chỉnh path nếu khác
+import PageNavButtons from "@/app/components/PageNavButtons";
 
 const TOTAL_SLIDES = 3;
 
@@ -253,6 +254,10 @@ export default function BrandingTimelessPage() {
 
         <div className="flex-1" />
       </div>
+      <PageNavButtons
+          variant="timeless"
+          className="pointer-events-auto absolute bottom-6 left-0 right-0 px-8 flex"
+      />
     </section>
   );
 }

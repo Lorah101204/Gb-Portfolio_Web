@@ -67,7 +67,7 @@ export default function HomePage() {
 
         {/* 🔴 KHỐI 2 ẢNH + 1 VIDEO  */}
         <div className="flex-1 flex items-center px-20 pb-30">
-          <div className="grid w-full gap-30 md:grid-cols-[1fr_1.5fr]">
+          <div className="grid w-full gap-30 md:grid-cols-[1fr_1.2fr]">
             {/* 🔵 CỘT TRÁI: 2 ẢNH */}
             <div className="flex flex-col gap-20">
               <motion.div
@@ -120,7 +120,7 @@ export default function HomePage() {
               }}
               className="
                 relative w-full 
-                flex items-center justify-end 
+                flex items-center justify-center 
                 overflow-visible
               "
             >
@@ -130,7 +130,7 @@ export default function HomePage() {
                 - max-w-none: không bị giới hạn bởi max-width mặc định.
                 - translate-x-4 md:translate-x-10: đẩy video lệch sang phải.
               */}
-                <div className="relative max-h-none max-w-none translate-x-0 w-full" style={{ marginTop: '-120px' }}>
+                <div className="relative translate-x-0" style={{ marginTop: '-50px' }}>
                 <video
                   src="/WEB_ELEMENT/NEWDESIGN/newasset/Gif.mp4"
                   autoPlay

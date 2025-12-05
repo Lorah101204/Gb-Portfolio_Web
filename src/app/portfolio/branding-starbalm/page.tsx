@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import PortfolioDropdown from "@/app/components/PortfolioDropdown"; // chỉnh path nếu khác
+import PageNavButtons from "@/app/components/PageNavButtons";      // 👈 THÊM DÒNG NÀY
 
 const TOTAL_SLIDES = 3;
 
@@ -16,7 +17,7 @@ export default function BrandingStarbalmPage() {
   // trạng thái slide 0: ảnh project name đã phóng to chưa
   const [isProjectExpanded, setIsProjectExpanded] = useState(false);
 
-  // ⭐ Tự động kích hoạt phóng to project name sau 0.2s khi vào page
+  // ⭐ Tự động kích hoạt phóng to project name sau 0.05s khi vào page
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsProjectExpanded(true);
@@ -29,7 +30,7 @@ export default function BrandingStarbalmPage() {
           })
         );
       }
-    }, 50); // 0.2s
+    }, 50);
 
     return () => {
       clearTimeout(timer);
@@ -263,6 +264,19 @@ export default function BrandingStarbalmPage() {
 
         <div className="flex-1" />
       </div>
+
+      {/* 🔴 NÚT CHUYỂN PAGE DƯỚI 2 BÊN PAGE */}
+      {/* 
+        - variant="timeless": để PageNavButtons tự chọn icon theo kiểu timeless (nếu bạn map trong component).
+        - className:
+            + absolute bottom-6 left-0 right-0: bám đáy page, kéo full chiều ngang
+            + flex justify-between: 2 nút nằm 2 bên trái/phải
+            + px-8: padding hai bên (điều chỉnh khoảng cách vào trong)
+      */}
+      <PageNavButtons
+        variant="timeless"
+        className="pointer-events-auto absolute bottom-6 left-0 right-0 px-8 flex"
+      />
     </section>
   );
 }

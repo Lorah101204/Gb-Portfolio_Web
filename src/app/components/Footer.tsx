@@ -52,20 +52,6 @@ const Footer = React.forwardRef<HTMLElement, Props>(function Footer(props, ref) 
         (props.className ? " " + props.className : "")
       }
     >
-      {/* 🔵 NÚT PREV - ĐẶT SÁT BÊN TRÁI FOOTER */}
-      <button
-        className="flex items-center justify-center px-3 py-2 rounded bg-white/70 text-black border border-black/20 hover:bg-white disabled:opacity-40 disabled:cursor-default"
-        disabled={safeIdx <= 0}
-        onClick={() => goToPage(safeIdx - 1)}
-        aria-label="Previous page"
-      >
-        {/* TODO: Thay span này bằng <Image> nếu muốn dùng icon riêng
-            Ví dụ:
-            <Image src="/path/to/prev-icon.png" alt="Prev" width={24} height={24} />
-        */}
-        <span className="text-xl leading-none">←</span>
-      </button>
-
       {/* 🟣 THANH SLIDER Ở GIỮA (Asset37 + Asset38) */}
       <div className="flex-1 flex items-center justify-center">
         <div
@@ -113,20 +99,6 @@ const Footer = React.forwardRef<HTMLElement, Props>(function Footer(props, ref) 
           </motion.div>
         </div>
       </div>
-
-      {/* 🔴 NÚT NEXT - ĐẶT SÁT BÊN PHẢI FOOTER */}
-      <button
-        className="flex items-center justify-center px-3 py-2 rounded bg-white/70 text-black border border-black/20 hover:bg-white disabled:opacity-40 disabled:cursor-default"
-        disabled={safeIdx >= routeOrder.length - 1}
-        onClick={() => goToPage(safeIdx + 1)}
-        aria-label="Next page"
-      >
-        {/* TODO: Thay span này bằng <Image> nếu muốn dùng icon riêng
-            Ví dụ:
-            <Image src="/path/to/next-icon.png" alt="Next" width={24} height={24} />
-        */}
-        <span className="text-xl leading-none">→</span>
-      </button>
     </motion.footer>
   );
 });
